@@ -15,7 +15,7 @@ router = APIRouter(
 
 
 @router.post("",response_model=schemas.ShowUser)
-def create_user(user:schemas.User,db: Session = Depends(get_db),get_current_user:schemas.User=Depends(oauth2.get_current_user)):
+def create_user(user:schemas.User,db: Session = Depends(get_db)):
     new_user = models.User(name=user.name,email=user.email,password=Hashing.encrypt_password(user.password))
     db.add(new_user)
     db.commit()

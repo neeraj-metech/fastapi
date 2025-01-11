@@ -1,4 +1,4 @@
-from pydantic import BaseModel,EmailStr
+from pydantic import BaseModel,EmailStr,Field
 from typing import Union,List
 class Blog(BaseModel):
     title: str
@@ -27,6 +27,7 @@ class ShowBlog(BaseModel):
     user: ShowUser
     class Config():
         orm_mode = True
+        
 class Login(BaseModel):
     username: EmailStr
     password: str
@@ -37,3 +38,15 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     email: EmailStr | None = None
+    
+
+class Chat(BaseModel):
+    question: str
+    chat_id: int = Field(default=None)
+    model: str = Field(default="gpt-4o-mini")
+                                 
+class ChatHistory(BaseModel):
+    answer: str
+    chat_id: str
+    model: str
+    

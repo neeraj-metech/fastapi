@@ -1,5 +1,5 @@
 from database import Base
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey,JSON,SmallInteger,Text
 from sqlalchemy.orm import relationship
 
 class Blog(Base):
@@ -21,4 +21,18 @@ class User(Base):
     password = Column(String)
     blogs = relationship("Blog", back_populates="user")
     
+class Chat(Base):
+    __tablename__ = "chat"
+
+    id = Column(Integer, primary_key=True, index=True)
+    chat_name = Column(String)
+
+class ChatHistory(Base):
+    __tablename__ = "chat_history"
+
+    id = Column(Integer, primary_key=True, index=True)
+    chat_id = Column(Integer, ForeignKey("chat.id"))
+    user_query = Column(Text)
+    gpt_response = Column(String)
+    model = Column(Text)
     
